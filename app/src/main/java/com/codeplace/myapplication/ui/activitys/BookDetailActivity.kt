@@ -13,7 +13,6 @@ class BookDetailActivity : AppCompatActivity() {
 
         val title = findViewById<TextView>(R.id.txt_title_detail)
         val author = findViewById<TextView>(R.id.txt_author_detail)
-        val description = findViewById<TextView>(R.id.txt_description_detail)
 
         // Providing actionBar display to go back home.
         val actionBar : ActionBar? = supportActionBar
