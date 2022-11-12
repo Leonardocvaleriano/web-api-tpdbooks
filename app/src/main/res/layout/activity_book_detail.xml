@@ -1,121 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_book_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
-    android:orientation="vertical"
+    android:background="@color/new_black"
     tools:context=".ui.activitys.BookDetailActivity"
     >
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_title_detail"
-        android:layout_width="360dp"
-        android:layout_height="220dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:background="@color/white"
-        app:cardCornerRadius="10dp"
-        >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/txt_title_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.438"
-                tools:text="The Book Of Eli" />
-
-            <TextView
-                android:id="@+id/txt_author_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@id/txt_title_detail"
-                app:layout_constraintTop_toBottomOf="@id/txt_title_detail"
-                tools:text="By"
-                 />
-
-            <TextView
-                android:id="@+id/txt_isbn_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:text="22322332-333"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/txt_title_description_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="NotSibling"
-            android:text="@string/description_title" />
-
-        <TextView
-        android:id="@+id/txt_description_detail"
-        android:layout_width="350dp"
+    <TextView
+        android:id="@+id/txt_title_detail"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="120dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/white"
+        android:textSize="35sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_title_description_detail"
-        tools:text="Widely considered one of the best practical guides to programming, Steve McConnell’s original CODE COMPLETE has been helping developers write better software for more than a decade. Now this classic book has been fully updated and revised with leading-edge practices—and hundreds of new code samples—illustrating the art and science of software construction. Capturing the body of knowledge available from research, academia, and everyday commercial practice, McConnell synthesizes the most effective techniques and must-know principles into clear, pragmatic guidance. No matter what your experience level, development environment, or project size, this book will inform and stimulate your thinking—and help you build the highest quality code."
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="The Book of Eli"
 
         />
+
+    <TextView
+        android:id="@+id/txt_author_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+         android:textColor="@color/grey"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/txt_title_detail"
+        app:layout_constraintTop_toBottomOf="@+id/txt_title_detail"
+        tools:text="Leonardo Valeriano" />
+
+    <TextView
+        android:id="@+id/txt_isbn_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="serif"
+        android:textColor="@color/grey"
+        android:textSize="15sp"
+         app:layout_constraintStart_toStartOf="@+id/txt_author_detail"
+        app:layout_constraintTop_toBottomOf="@id/txt_author_detail"
+        tools:text="22322332-333" />
+
 
     <TextView
         android:id="@+id/txt_price_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/txt_currencyCode_detail"
-        tools:text="100.00"
+        android:fontFamily="serif"
+        android:textSize="15sp"
+         android:textColor="@color/grey"
+        app:layout_constraintStart_toStartOf="@+id/txt_isbn_detail"
+        app:layout_constraintTop_toBottomOf="@id/txt_isbn_detail"
+        tools:text="100.00" />
 
+    <TextView
+        android:id="@+id/txt_currencyCode_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:fontFamily="serif"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        android:textColor="@color/grey"
+        app:layout_constraintStart_toEndOf="@id/txt_price_detail"
+        app:layout_constraintTop_toBottomOf="@id/txt_isbn_detail"
+        tools:text="EUR" />
+
+
+    <TextView
+        android:id="@+id/txt_title_description_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/description_title"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/txt_price_detail"
+        app:layout_constraintTop_toBottomOf="@id/txt_price_detail"/>
+
+    <TextView
+        android:id="@+id/txt_description_detail"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/grey"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txt_title_description_detail"
+        app:layout_constraintTop_toBottomOf="@id/txt_title_description_detail"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
         />
 
-        <TextView
-            android:id="@+id/txt_currencyCode_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="EUR"
-
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
