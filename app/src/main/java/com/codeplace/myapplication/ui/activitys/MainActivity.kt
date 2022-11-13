@@ -1,58 +1,69 @@
 package com.codeplace.myapplication.ui.activitys
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codeplace.myapplication.R
 import com.codeplace.myapplication.models.Book
 import com.codeplace.myapplication.ui.recyclerview.adapter.BookListAdapter
+import com.codeplace.myapplication.webclient.services.RetrofitInstance
+import com.codeplace.myapplication.webclient.services.models.BookResponse
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Response
 
-// init array with books
 
-
+var book : List<Book> = listOf()
 
 class MainActivity : AppCompatActivity()  {
 
     companion object{
         val INTENT_PARCELABLE = "OBJECT_INTENT "
-    }
+     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val list :MutableList<Book> = mutableListOf()
+        initValues()
+    }
 
 
-        list.add(Book(
-            id = 1,
-            title = "The Book Of Eli 2",
-            isbn = "12345-11112",
-            price = 233.22,
-            currencyCode = "GBP",
-            author = "Leonardo Valeriano2",
-            description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
-        ))
-
-
-        // initAdapter
-
-                val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-                recyclerView.layoutManager = LinearLayoutManager(this)
-                recyclerView.adapter = BookListAdapter(list, this){
-                    val intent = Intent(this, BookDetailActivity::class.java)
-                    intent.putExtra(INTENT_PARCELABLE, it)
-                    startActivity(intent)
-                }
+    fun initValues(){
+        getBooks()
 
     }
 
+    fun getBooks() {
+        lifecycleScope.launch(IO) {
+                val call: Call<List<BookResponse>> = RetrofitInstance().bookService.getAllBooks()
+                // Executando a execucao para puxar os dados da web api, o qual tera uma resposta.
+                val response: Response<List<BookResponse>> = call.execute()
+                // Com a resposta, teremos acesso ao corpo desta resposta
+                // Por esta resposta poder ser um nullable, utilizamos o let para termos acesso aos livros
+                response.body()?.let { bookResponses ->
+                    //Log.i("BookList:","on create $bookResponses" )
+                    book = bookResponses.map {
+                        it.book
+                    }
+
+                }
+            runOnUiThread { initAdapter(book) }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun initAdapter(book:List<Book>) {
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter =  BookListAdapter(book, this){
+            val intent = Intent(this, BookDetailActivity::class.java)
+            intent.putExtra(INTENT_PARCELABLE, it)
+            startActivity(intent) }
+    }
 }
-
-
-
-
-
-

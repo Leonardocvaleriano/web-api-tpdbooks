@@ -10,7 +10,7 @@ import com.codeplace.myapplication.R
 import com.codeplace.myapplication.models.Book
 
 class BookListAdapter(
-     val list: List<Book>,
+     val book: List<Book>,
      val context: Context,
      val listener:(Book) -> Unit
 ) : RecyclerView.Adapter<BookListAdapter.ViewHolder>() {
@@ -44,11 +44,11 @@ class BookListAdapter(
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            holder.bindItens(list[position], listener)
+            holder.bindItens(book[position], listener)
 
       }
 
     override fun getItemCount(): Int {
-        return list.size
+        return book.size
     }
 }
