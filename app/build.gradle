@@ -8,18 +8,21 @@ plugins {
 
 android {
     namespace 'com.codeplace.myapplication'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.codeplace.myapplication"
         minSdk 22
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        viewBinding true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -37,7 +40,22 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.okhttp3:okhttp:4.10.0"
+
+    // Courotines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
+
+    // Courotine Lifecycle Scopes
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
