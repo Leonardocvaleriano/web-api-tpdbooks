@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity()  {
                     book = bookResponses.map {
                         it.book
                     }
-
                 }
             runOnUiThread { initAdapter(book) }
         }
@@ -67,3 +66,4 @@ class MainActivity : AppCompatActivity()  {
             startActivity(intent) }
     }
 }
+

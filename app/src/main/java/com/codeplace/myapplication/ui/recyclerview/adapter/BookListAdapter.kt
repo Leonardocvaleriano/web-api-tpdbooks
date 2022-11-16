@@ -1,5 +1,6 @@
 package com.codeplace.myapplication.ui.recyclerview.adapter
 
+import android.content.ClipDescription
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,6 @@ class BookListAdapter(
                 price.text = book.price.toString()
                 author.text = book.author
                 currencyCode.text = book.currencyCode
-
                 itemView.setOnClickListener{ listener(book) }
              }
     }
