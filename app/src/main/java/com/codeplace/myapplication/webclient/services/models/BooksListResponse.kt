@@ -1,6 +1,6 @@
 package com.codeplace.myapplication.webclient.services.models
 
-data class BookListResponse(
+data class BooksListResponse(
         val author: String?,
         val currencyCode: String?,
         val id: Int?,

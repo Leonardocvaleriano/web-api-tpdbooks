@@ -1,13 +1,15 @@
 package com.codeplace.myapplication.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.codeplace.myapplication.databinding.BookListBinding
-import com.codeplace.myapplication.webclient.services.models.BookListResponse
+import com.codeplace.myapplication.ui.activitys.BookDetailActivity
+import com.codeplace.myapplication.webclient.services.models.BooksListResponse
 
 class BookListAdapter:RecyclerView.Adapter<BookListAdapter.ViewHolder>(){
 
@@ -38,38 +40,42 @@ class BookListAdapter:RecyclerView.Adapter<BookListAdapter.ViewHolder>(){
     // Here we have access to the book_list views
     // Assign that the views will receive the data content.
     inner class ViewHolder: RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: BookListResponse){
+        fun bind(item: BooksListResponse){
             binding.apply {
                 txtTitle.text = item.title
                 txtAuthor.text = item.author
                 txtIsbn.text = item.isbn
                 txtPrice.text = item.price.toString()
                 txtCurrencyCode.text = item.currencyCode
+
+                root.setOnClickListener {
+                    val intent = Intent(context,BookDetailActivity::class.java)
+                    intent.putExtra("ID", item.id)
+                    context.startActivity(intent)
+                }
+
             }
 
         }
     }
 
-
-    private val differCallback= object :DiffUtil.ItemCallback<BookListResponse>(){
+    private val differCallback= object :DiffUtil.ItemCallback<BooksListResponse>(){
         override fun areItemsTheSame(
-            oldItem: BookListResponse,
-            newItem: BookListResponse
+            oldItem: BooksListResponse,
+            newItem: BooksListResponse
         ): Boolean {
-                return oldItem.id == newItem.id
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: BookListResponse,
-            newItem: BookListResponse
+            oldItem: BooksListResponse,
+            newItem: BooksListResponse
         ): Boolean {
             return oldItem == newItem }
 
     }
 
     val differ =  AsyncListDiffer(this, differCallback)
-
-
 
 }
 

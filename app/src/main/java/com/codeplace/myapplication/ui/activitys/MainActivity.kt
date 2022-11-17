@@ -8,13 +8,11 @@ import com.codeplace.myapplication.databinding.ActivityMainBinding
 import com.codeplace.myapplication.ui.adapter.BookListAdapter
 import com.codeplace.myapplication.webclient.services.ApiClient
 import com.codeplace.myapplication.webclient.services.ApiService
-import com.codeplace.myapplication.webclient.services.models.BookListResponse
+import com.codeplace.myapplication.webclient.services.models.BooksListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//Global property
-//var book: List<Book> = listOf()
 
 class MainActivity : AppCompatActivity()  {
 
@@ -48,10 +46,10 @@ class MainActivity : AppCompatActivity()  {
 
 
                 val callMovieApi = api.getListBook()
-                callMovieApi.enqueue(object  : Callback<MutableList<BookListResponse>>{
+                callMovieApi.enqueue(object  : Callback<MutableList<BooksListResponse>>{
                     override fun onResponse(
-                        call: Call<MutableList<BookListResponse>>,
-                        response: Response<MutableList<BookListResponse>>
+                        call: Call<MutableList<BooksListResponse>>,
+                        response: Response<MutableList<BooksListResponse>>
                     ) {
                         progressbarListBook.visibility = View.GONE
                         when(response.code()){
@@ -84,7 +82,7 @@ class MainActivity : AppCompatActivity()  {
                     }
 
                     override fun onFailure(
-                        call: Call<MutableList<BookListResponse>>,
+                        call: Call<MutableList<BooksListResponse>>,
                         t: Throwable
                     ) {
                         progressbarListBook.visibility = View.GONE
@@ -94,10 +92,7 @@ class MainActivity : AppCompatActivity()  {
 
                 })
 
-                    // If there is any response of our call with the date of books list, we need work...
-                    // at this part
 
-                        // Doing the progress bar going out.
             }
 
 
