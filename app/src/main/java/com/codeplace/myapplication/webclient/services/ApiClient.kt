@@ -1,4 +1,4 @@
-package com.codeplace.myapplication.webclient.services.models
+package com.codeplace.myapplication.webclient.services
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -43,7 +43,7 @@ class ApiClient {
 
     fun getClient():Retrofit{
         retrofit=Retrofit.Builder()
-            .baseUrl("http://tpbookserver.herokuapp.com")
+            .baseUrl("http://tpbookserver.herokuapp.com/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

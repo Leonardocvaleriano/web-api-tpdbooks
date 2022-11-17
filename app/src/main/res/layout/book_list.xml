@@ -11,8 +11,8 @@
     app:cardBackgroundColor="@color/new_black_light"
     app:cardCornerRadius="10dp"
     android:elevation="20dp"
-
-    android:id="@+id/book_list">
+    android:id="@+id/book_list"
+>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

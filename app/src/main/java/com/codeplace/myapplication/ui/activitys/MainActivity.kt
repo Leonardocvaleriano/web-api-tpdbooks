@@ -1,69 +1,110 @@
 package com.codeplace.myapplication.ui.activitys
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.codeplace.myapplication.R
-import com.codeplace.myapplication.models.Book
-import com.codeplace.myapplication.ui.recyclerview.adapter.BookListAdapter
-import com.codeplace.myapplication.webclient.services.RetrofitInstance
-import com.codeplace.myapplication.webclient.services.models.BookResponse
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
+import com.codeplace.myapplication.databinding.ActivityMainBinding
+import com.codeplace.myapplication.ui.adapter.BookListAdapter
+import com.codeplace.myapplication.webclient.services.ApiClient
+import com.codeplace.myapplication.webclient.services.ApiService
+import com.codeplace.myapplication.webclient.services.models.BookListResponse
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
-
-var book : List<Book> = listOf()
+//Global property
+//var book: List<Book> = listOf()
 
 class MainActivity : AppCompatActivity()  {
 
-    companion object{
-        val INTENT_PARCELABLE = "OBJECT_INTENT "
-     }
+    // BUILDFUTURE BINDING EXPLANATION **
+    // Initializing the binding Added as true in build.gradle
 
+    // ** LATEINIT VAR EXPLANATION **
+    // The late init keyWord allow us to avoid initializing a property when an object is constructed,
+    // so it make your property be initialized as soon as possible.
+    lateinit var binding:ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    // ** LAZY PROPERTY EXPLANATION **
+    // lazy is mainly used when you want to access some read-only property because the same object is accessed.
+
+    val bookListAdapter by lazy { BookListAdapter() }
+
+    // Initializing the retrofit
+    private val api: ApiService by lazy {
+        ApiClient().getClient().create(ApiService::class.java)
+    }
+
+       override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+           binding = ActivityMainBinding.inflate(layoutInflater)
+           setContentView(binding.root)
 
-        initValues()
-    }
+            binding.apply {
+
+                // Doing the progress bar going on.
+                progressbarListBook.visibility = View.VISIBLE
 
 
-    fun initValues(){
-        getBooks()
+                val callMovieApi = api.getListBook()
+                callMovieApi.enqueue(object  : Callback<MutableList<BookListResponse>>{
+                    override fun onResponse(
+                        call: Call<MutableList<BookListResponse>>,
+                        response: Response<MutableList<BookListResponse>>
+                    ) {
+                        progressbarListBook.visibility = View.GONE
+                        when(response.code()){
+                            in 200..299 -> {
+                                Log.d("Response Code", "Success message: ${response.code()}")
+                                response.body()?.let { itBody ->
+                                    if (itBody.isNotEmpty()){
+                                        bookListAdapter.differ.submitList(itBody)
+                                        //Recycler
+                                        recyclerView.apply {
+                                            layoutManager = LinearLayoutManager(this@MainActivity)
+                                            adapter = bookListAdapter
+                                        }
+                                    }
 
-    }
+                                }
 
-    fun getBooks() {
-        lifecycleScope.launch(IO) {
-                val call: Call<List<BookResponse>> = RetrofitInstance().bookService.getAllBooks()
-                // Executando a execucao para puxar os dados da web api, o qual tera uma resposta.
-                val response: Response<List<BookResponse>> = call.execute()
-                // Com a resposta, teremos acesso ao corpo desta resposta
-                // Por esta resposta poder ser um nullable, utilizamos o let para termos acesso aos livros
-                response.body()?.let { bookResponses ->
-                    //Log.i("BookList:","on create $bookResponses" )
-                    book = bookResponses.map {
-                        it.book
+                            }
+                            in 300..399 -> {
+                                Log.d("Response Code", "Redirection message: ${response.code()}")
+                            }
+                            in 400..499 ->{
+                                Log.d("Response Code", "Client error message: ${response.code()}")
+                            }
+                            in 500..599 ->{
+                                Log.d("Response code", "Server error responses ${response.code()}")
+                            }
+                        }
+
                     }
-                }
-            runOnUiThread { initAdapter(book) }
-        }
-    }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun initAdapter(book:List<Book>) {
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter =  BookListAdapter(book, this){
-            val intent = Intent(this, BookDetailActivity::class.java)
-            intent.putExtra(INTENT_PARCELABLE, it)
-            startActivity(intent) }
-    }
+                    override fun onFailure(
+                        call: Call<MutableList<BookListResponse>>,
+                        t: Throwable
+                    ) {
+                        progressbarListBook.visibility = View.GONE
+                        Log.d("on failure", "Err: ${t.message}")
+                    }
+
+
+                })
+
+                    // If there is any response of our call with the date of books list, we need work...
+                    // at this part
+
+                        // Doing the progress bar going out.
+            }
+
+
+       }
+
+
 }
+
+
 
