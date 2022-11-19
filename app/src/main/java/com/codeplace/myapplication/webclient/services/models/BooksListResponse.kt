@@ -6,6 +6,4 @@ data class BooksListResponse(
         val id: Int?,
         val isbn: String?,
         val price: Double?,
-        val title: String?){
-
-}
+        val title: String?)

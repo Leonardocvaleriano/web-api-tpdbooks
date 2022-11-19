@@ -1,7 +1,6 @@
 package com.codeplace.myapplication.ui.activitys
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.codeplace.myapplication.databinding.ActivityBookDetailBinding
 import com.codeplace.myapplication.webclient.services.ApiClient
@@ -67,9 +66,7 @@ class BookDetailActivity : AppCompatActivity() {
 
 
             })
-                    imgEditable.setOnClickListener{
 
-                    }
         }
 
 
