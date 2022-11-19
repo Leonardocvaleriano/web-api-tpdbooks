@@ -4,5 +4,6 @@
     <string name="by">By</string>
     <string name="isbn">Isbn</string>
     <string name="price">Price</string>
+    <string name="books">Books</string>
 
 </resources>

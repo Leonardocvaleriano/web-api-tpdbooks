@@ -5,33 +5,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activitys.MainActivity"
     android:background="@color/new_black"
+    tools:context=".ui.activitys.MainActivity"
+    >
+<TextView
+    android:id="@+id/book_list_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="sans-serif-black"
+    android:padding="15dp"
+    android:layout_marginTop="5dp"
+     android:text="@string/books"
+    android:textColor="@color/white"
+    android:textSize="35sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
     >
 
+</TextView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/book_list">
+        app:layout_constraintTop_toBottomOf="@+id/book_list_label"
+        tools:listitem="@layout/book_list"
+
+        >
     </androidx.recyclerview.widget.RecyclerView>
 
     <ProgressBar
+        android:id="@+id/progressbar_list_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
         android:minWidth="50dp"
-        android:id="@+id/progressbar_list_book"
-        app:layout_constraintTop_toTopOf="parent"
+        android:minHeight="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

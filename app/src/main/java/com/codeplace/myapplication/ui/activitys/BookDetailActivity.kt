@@ -13,7 +13,6 @@ import retrofit2.Response
 
 
 class BookDetailActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityBookDetailBinding
     private val api: ApiService by lazy {
         ApiClient().getClient().create(ApiService::class.java)
@@ -42,10 +41,10 @@ class BookDetailActivity : AppCompatActivity() {
                                 txtDescriptionDetail.text = itBody.description
 
 
-                                val actionBar : ActionBar? = supportActionBar
-                                actionBar!!.setDisplayHomeAsUpEnabled(true)
-                                actionBar?.setDisplayShowHomeEnabled(true)
-                                actionBar?.setTitle(txtTitleDetail.text)
+//                                val actionBar : ActionBar? = supportActionBar
+//                                actionBar!!.setDisplayHomeAsUpEnabled(true)
+//                                actionBar?.setDisplayShowHomeEnabled(true)
+//                                actionBar?.setTitle(txtTitleDetail.text)
 
                             }
 
@@ -68,8 +67,11 @@ class BookDetailActivity : AppCompatActivity() {
 
 
             })
+                    imgEditable.setOnClickListener{
 
+                    }
         }
+
 
 
     }
